@@ -2,210 +2,77 @@
 <html lang="ar">
   <head>
     <meta charset="UTF-8" />
-    <title>برنامج الأسئلة والأجوبة - الوضع الداكن</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>تم نقل الموقع</title>
     <style>
-      /* نمط الوضع الداكن */
       body {
+        background-color: #121212;
+        color: #fff;
         font-family: Arial, sans-serif;
-        background: #121212;
-        color: #e0e0e0;
-        direction: rtl;
-        text-align: center;
         margin: 0;
-        padding: 20px;
+        padding: 0;
+        direction: rtl;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        text-align: center;
       }
       .container {
-        background: #1e1e1e;
-        border-radius: 10px;
-        padding: 30px;
-        margin: 20px auto;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-        max-width: 600px;
+        max-width: 400px;
+        padding: 20px;
+        border-radius: 8px;
       }
-      .question,
-      .answer {
-        margin: 20px 0;
-        padding: 15px;
-        border: 1px solid #333;
-        border-radius: 6px;
-        background: #272727;
-        min-height: 50px;
+      a {
+        color: #1e90ff;
+        text-decoration: none;
+        font-size: 1.2em;
       }
-      .buttons {
-        margin-top: 20px;
+      .hand {
+        margin-top: 10px;
+        font-size: 2em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .hand span {
+        margin-right: 8px;
+        font-size: 1.2em;
+      }
+      .button-container {
+        margin-top: 30px;
       }
       button {
-        background: #3a3a3a;
-        color: #e0e0e0;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 5px;
-        margin: 5px;
-        cursor: pointer;
-        transition: background 0.3s ease;
-      }
-      button:hover {
-        background: #575757;
-      }
-      .letter-selection {
-        display: none;
-        margin-top: 15px;
-      }
-      .letter-btn {
-        background: #444;
+        background-color: red;
         color: #fff;
         border: none;
-        padding: 8px 12px;
-        border-radius: 4px;
-        margin: 3px;
+        padding: 15px 30px;
+        font-size: 1em;
+        border-radius: 5px;
         cursor: pointer;
-        transition: background 0.3s ease;
       }
-      .letter-btn:hover {
-        background: #666;
-      }
-      #selected-letter {
-        margin-left: 10px;
-        font-weight: bold;
-        color: #00bcd4;
+      button:hover {
+        opacity: 0.8;
       }
     </style>
   </head>
   <body>
     <div class="container">
-      <div class="question" id="question">هنا يظهر السؤال</div>
-      <div class="answer" id="answer">هنا يظهر الجواب</div>
-      <div class="buttons">
-        <button id="random-btn">سؤال عشوائي</button>
-        <button id="choose-letter-btn">اختر الحرف</button>
-        <span id="selected-letter"></span>
+      <h1>تم نقل الموقع الى رابط اخر هذا هو الرابط الجديد 👇​</h1>
+      <p>
+        <a href="https://7rofy-questions.up.railway.app/" target="_blank"
+          >https://7rofy-questions.up.railway.app/</a
+        >
+      </p>
+      <div class="hand">
+        <span>👆​</span>
+        <span>اضغط على الرابط</span>
       </div>
-      <div class="letter-selection" id="letter-selection">
-        <!-- ستظهر هنا أزرار الحروف -->
+      <div class="button-container">
+        <button onclick="window.location.href='https://7rofy.up.railway.app'">
+          اضغطني
+        </button>
       </div>
     </div>
-
-    <script>
-      // مصفوفة تحتوي على 28 حرف عربي
-      const letters = [
-        "أ",
-        "ب",
-        "ت",
-        "ث",
-        "ج",
-        "ح",
-        "خ",
-        "د",
-        "ذ",
-        "ر",
-        "ز",
-        "س",
-        "ش",
-        "ص",
-        "ض",
-        "ط",
-        "ظ",
-        "ع",
-        "غ",
-        "ف",
-        "ق",
-        "ك",
-        "ل",
-        "م",
-        "ن",
-        "ه",
-        "و",
-        "ي",
-      ];
-
-      let selectedLetter = ""; // الحرف المختار
-      let questionsData = []; // لتخزين الأسئلة والإجابات المحملة من الملف
-
-      const letterSelectionDiv = document.getElementById("letter-selection");
-
-      // إنشاء أزرار لكل حرف وإضافتها لقائمة اختيار الحرف
-      letters.forEach((letter) => {
-        const btn = document.createElement("button");
-        btn.textContent = letter;
-        btn.classList.add("letter-btn");
-        btn.addEventListener("click", function () {
-          selectedLetter = letter;
-          document.getElementById("selected-letter").textContent =
-            "الحرف المختار: " + letter;
-          // إخفاء قائمة اختيار الحرف بعد الاختيار
-          letterSelectionDiv.style.display = "none";
-          // تحميل الأسئلة من الملف المناسب
-          loadQuestions(letter);
-        });
-        letterSelectionDiv.appendChild(btn);
-      });
-
-      // إظهار/إخفاء قائمة اختيار الحرف عند الضغط على زر "اختر الحرف"
-      document
-        .getElementById("choose-letter-btn")
-        .addEventListener("click", function () {
-          if (
-            letterSelectionDiv.style.display === "none" ||
-            letterSelectionDiv.style.display === ""
-          ) {
-            letterSelectionDiv.style.display = "block";
-          } else {
-            letterSelectionDiv.style.display = "none";
-          }
-        });
-
-      // دالة لتحميل الأسئلة من الملف النصي الخاص بالحرف
-      function loadQuestions(letter) {
-        const fileName = letter + ".txt";
-        fetch(fileName)
-          .then((response) => response.text())
-          .then((data) => {
-            questionsData = [];
-            const lines = data.split(/\r?\n/);
-            let currentQuestion = "";
-            let currentAnswer = "";
-            lines.forEach((line) => {
-              if (line.startsWith("السؤال:")) {
-                currentQuestion = line.replace("السؤال:", "").trim();
-              } else if (line.startsWith("الإجابة:")) {
-                currentAnswer = line.replace("الإجابة:", "").trim();
-                if (currentQuestion !== "" && currentAnswer !== "") {
-                  questionsData.push({
-                    question: currentQuestion,
-                    answer: currentAnswer,
-                  });
-                  currentQuestion = "";
-                  currentAnswer = "";
-                }
-              }
-            });
-            if (questionsData.length === 0) {
-              alert("لم يتم العثور على أسئلة في الملف " + fileName);
-            }
-          })
-          .catch((err) => {
-            alert("حدث خطأ أثناء تحميل الملف " + fileName);
-            console.error(err);
-          });
-      }
-
-      // عند الضغط على زر "سؤال عشوائي"
-      document
-        .getElementById("random-btn")
-        .addEventListener("click", function () {
-          if (selectedLetter === "") {
-            alert("يرجى اختيار حرف أولاً عن طريق الضغط على زر 'اختر الحرف'");
-            return;
-          }
-          if (questionsData.length === 0) {
-            alert("لا يوجد أسئلة متاحة لهذا الحرف.");
-            return;
-          }
-          const randomIndex = Math.floor(Math.random() * questionsData.length);
-          const qa = questionsData[randomIndex];
-          document.getElementById("question").textContent = qa.question;
-          document.getElementById("answer").textContent = qa.answer;
-        });
-    </script>
   </body>
 </html>
